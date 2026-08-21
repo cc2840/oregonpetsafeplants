@@ -1,0 +1,232 @@
+/* Oregon Pet Safe Plants — custom styles */
+
+body {
+  background-color: var(--quarto-hero-bg, #fbfaf5);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  width: 100%;
+  margin: 0 0 2rem 0;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  background-color: #eef3e8;
+  border-radius: 0 0 12px 12px;
+}
+
+.hero-text {
+  flex: 1 1 400px;
+  text-align: left;
+  max-width: 460px;
+  margin: 0;
+  padding: 1.5rem 1.75rem;
+}
+
+.hero-title {
+  color: #3f6c4e;
+  font-size: 2.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.hero-tagline {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #3a332b;
+  margin-bottom: 0;
+}
+
+.hero-illustration {
+  flex: 1 1 400px;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+  }
+
+  .hero-text {
+    text-align: center;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .hero-illustration {
+    max-width: 320px;
+  }
+}
+
+/* ---------- Disclaimer callout ---------- */
+.disclaimer {
+  max-width: 900px;
+  margin: 0 auto 2.5rem auto;
+  padding: 1rem 1.25rem;
+  background-color: #eef3e8;
+  border-left: 4px solid #7a9d6f;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #3a332b;
+}
+
+/* ---------- Content width ---------- */
+.content-narrow {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1rem 3rem 1rem;
+}
+
+/* ---------- Find a Plant / Browse All Plants button ---------- */
+.browse-button {
+  display: inline-block;
+  padding: 0.65rem 1.5rem;
+  background-color: #3f6c4e;
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.browse-button:hover {
+  background-color: #345a41;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* ---------- Browse Plants: name search box ----------
+   Overrides Quarto's default listing-filter styling (which floats the box
+   to the right at a fixed 200px, meant to sit alongside a sort dropdown we
+   don't use) so it instead sits left-aligned, wider, and matches the rest
+   of the site's search/input styling. */
+.plant-search-bar {
+  margin-bottom: 2rem;
+}
+
+.plant-search-bar .listing-actions-group {
+  display: block;
+}
+
+.plant-search-bar .quarto-listing-filter {
+  width: 100%;
+  max-width: 420px;
+  margin: 0;
+}
+
+.plant-search-bar .quarto-listing-filter .input-group-text {
+  background-color: #eef3e8;
+  color: #3f6c4e;
+  border-color: #cddac4;
+}
+
+.plant-search-bar .quarto-listing-filter input.search {
+  border-color: #cddac4;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.plant-search-bar .quarto-listing-filter input.search:focus {
+  border-color: #7a9d6f;
+  box-shadow: 0 0 0 0.2rem rgba(122, 157, 111, 0.25);
+}
+
+/* ---------- Plant common name(s), shown under the scientific-name title ---------- */
+.plant-common-names {
+  font-size: 1.25rem;
+  color: #5a6b5c;
+  margin-top: -0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+/* ---------- Pet safety icons (cat / dog badges) ---------- */
+.pet-safety-icons {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem 0 1.5rem 0;
+}
+
+.pet-safety-icons .pet-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1rem 0.4rem 0.6rem;
+  background-color: #eef3e8;
+  border-radius: 999px;
+  font-weight: 600;
+  color: #3a332b;
+}
+
+.pet-safety-icons .pet-icon-check-wrap {
+  display: inline-flex;
+  align-items: center;
+  width: 18px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.pet-safety-icons .pet-icon-check {
+  width: 100%;
+  height: 100%;
+}
+
+.pet-safety-icons .pet-icon-graphic {
+  display: inline-flex;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+.pet-safety-icons .pet-icon-svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ---------- Browse Plants cards: hide field-label column, style link row ----------
+   Quarto's listing grid renders each custom field as a table row with a
+   label cell (e.g. "Common name(s)", "Pet safety") followed by a value
+   cell. We only want the values shown on the card, not the labels, so hide
+   the first (label) column of that table -- scoped to .card-other-values
+   so it doesn't affect any other tables on the site. */
+.card-other-values td:first-child {
+  display: none;
+}
+
+.card-ref-links {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.card-ref-links a {
+  color: #3f6c4e;
+  font-weight: 600;
+}
+
+/* ---------- Example-content callout (used on starter plant pages) ---------- */
+.example-note {
+  margin: 1.5rem 0;
+  padding: 0.85rem 1.1rem;
+  background-color: #fbf2e4;
+  border-left: 4px solid #b5763b;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #3a332b;
+}
+
+/* ---------- Headings inside content ---------- */
+.content-narrow h3 {
+  margin-top: 2rem;
+  border-top: 1px solid #eef3e8;
+  padding-top: 1.5rem;
+}
