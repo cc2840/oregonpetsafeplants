@@ -159,7 +159,7 @@ window.Quarto = {
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./plants.html" aria-current="page"> 
-<span class="menu-text">Browse Plants</span></a>
+<span class="menu-text">Plant Index</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
@@ -176,10 +176,9 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Qw==">C <span class="quarto-category-count">(2)</span></div></div></div>
+    
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -188,7 +187,7 @@ window.Quarto = {
 
 
 
-<div class="quarto-title-meta column-page-left">
+<div class="quarto-title-meta column-page">
 
     
   
@@ -201,7 +200,8 @@ window.Quarto = {
 
 
 <div class="content-narrow">
-<p>Every plant below has been carefully cross-referenced against the ASPCA’s list of non-toxic plants and OregonFlora’s native plant database. Browse all plants or use the search box to look up a plant by common or scientific name.</p>
+<p>Every plant below has been carefully cross-referenced against the ASPCA’s list of non-toxic plants and OregonFlora’s native plant database. Browse all plants or use the search box to find a plant by common or scientific name.</p>
+<p><span class="report-issue-note">Notice a broken link, an error in a plant’s safety information, or a mistake in a scientific or common name? Know of a pet-safe native plant that’s missing from this list? <a href="https://forms.gle/9LCtndbwXSRp4wPa7">Report an issue or suggest a plant</a>.</span></p>
 </div>
 <div class="content-narrow plant-search-bar">
   <div class="listing-actions-group">
@@ -238,59 +238,26 @@ document.addEventListener('DOMContentLoaded', function () {
   // description, author, date...); our common names come from a custom
   // CSV-driven field rendered as a plain "common-names" class in the
   // "other values" table, so we read the card text directly instead and
-  // drive List.js's own filter() -- the same mechanism the category
-  // sidebar uses -- so search and category filtering compose correctly.
+  // drive List.js's own filter().
   var list = window['quarto-listings'] && window['quarto-listings']['listing-listing'];
   var searchInput = document.getElementById('plant-name-search');
   if (!list || !searchInput) return;
 
-  function activeCategory() {
-    var activeEl = document.querySelector('.quarto-listing-category .category.active');
-    if (!activeEl) return '';
-    try {
-      return decodeURIComponent(atob(activeEl.getAttribute('data-category')));
-    } catch (e) {
-      return '';
-    }
-  }
-
   function applyFilters() {
     var term = searchInput.value.trim().toLowerCase();
-    var category = activeCategory();
 
     list.filter(function (item) {
-      if (category) {
-        var itemValues = item.values();
-        if (itemValues.categories == null) return false;
-        var categories = decodeURIComponent(atob(itemValues.categories)).split(',');
-        if (categories.indexOf(category) === -1) return false;
-      }
+      if (!term) return true;
 
-      if (term) {
-        var el = item.elm;
-        var titleText = (el.querySelector('.listing-title') || {}).textContent || '';
-        var namesText = (el.querySelector('.common-names') || {}).textContent || '';
-        var haystack = (titleText + ' ' + namesText).toLowerCase();
-        if (haystack.indexOf(term) === -1) return false;
-      }
-
-      return true;
+      var el = item.elm;
+      var titleText = (el.querySelector('.listing-title') || {}).textContent || '';
+      var namesText = (el.querySelector('.common-names') || {}).textContent || '';
+      var haystack = (titleText + ' ' + namesText).toLowerCase();
+      return haystack.indexOf(term) !== -1;
     });
   }
 
   searchInput.addEventListener('input', applyFilters);
-
-  // Re-apply the current search term whenever a category is clicked, since
-  // Quarto's own category handler calls list.filter() itself and would
-  // otherwise clobber our text filter. Deferred with setTimeout so this
-  // runs after Quarto's own click handler has updated the active category.
-  document.querySelectorAll('.quarto-listing-category .category, .quarto-listing-category-title').forEach(function (el) {
-    el.addEventListener('click', function () {
-      setTimeout(applyFilters, 0);
-    });
-  });
-
-  applyFilters();
 });
 </script>
 

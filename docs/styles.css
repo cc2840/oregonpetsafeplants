@@ -45,6 +45,7 @@ body {
   width: 100%;
   max-width: 460px;
   height: auto;
+  object-fit: contain;
 }
 
 @media (max-width: 768px) {
@@ -61,7 +62,17 @@ body {
   }
 
   .hero-illustration {
+    /* .hero switches to a column here, which turns the 400px flex-basis
+       above into a HEIGHT target instead of a width one -- exactly the
+       wrong axis, and it was forcing the image's box to a fixed 400px
+       tall regardless of its (now much narrower) width, squishing the
+       artwork. Drop the flex-basis sizing entirely on narrow screens and
+       size purely from width/max-width so height:auto keeps the image's
+       real aspect ratio. */
+    flex: 0 0 auto;
+    width: 100%;
     max-width: 320px;
+    height: auto;
   }
 }
 
@@ -82,6 +93,19 @@ body {
   max-width: 900px;
   margin: 0 auto;
   padding: 0 1rem 3rem 1rem;
+}
+
+/* ---------- Plant Index: "report an issue" note ---------- */
+.report-issue-note {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #5a6b5c;
+}
+
+.report-issue-note a {
+  color: #3f6c4e;
+  font-weight: 600;
 }
 
 /* ---------- Find a Plant / Browse All Plants button ---------- */
